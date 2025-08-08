@@ -11,3 +11,6 @@
 直接将midi(.mid)文件放置在playlist文件夹下即可
 
 Release版本的playlist中自带一首senbonzakura.mid，可以直接使用
+
+## 编译指南
+详细编译说明请参阅 [BUILD.md](doc/BUILD.md)
