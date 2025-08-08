@@ -1,6 +1,6 @@
 # Genshin Midi Auto Player
 
-自动播放《原神》风物之诗琴 MIDI 文件的工具
+自动播放 midi 文件到《原神》风物之诗琴上的工具
 
 ## 下载安装
 1. 前往 [Release 页面](https://github.com/LBSD-30/Genshin-Midi-Auto-Player/releases) 下载安装包
