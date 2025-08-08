@@ -9,4 +9,5 @@
 
 ## 添加 midi
 直接将midi(.mid)文件放置在playlist文件夹下即可
+
 Release版本的playlist中自带一首senbonzakura.mid，可以直接使用
