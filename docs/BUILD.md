@@ -32,7 +32,7 @@ cd Genshin-Midi-Auto-Player
 ### 步骤 2：配置 Qt VS Tools
 1. 打开 Visual Studio 2022
 2. 转到菜单：`扩展` → `Qt VS Tools` → `Qt Options`
-3. 添加 Qt 安装路径（例如：`C:\Qt\6.7.0\msvc2022_64`）
+3. 添加 Qt 安装路径（例如：`C:\Qt\6.9.1\msvc2022_64`）
 4. 设置版本名称（如 "Qt 6.7.0 MSVC2022 64-bit"）
 
 ### 步骤 3：打开项目
@@ -69,7 +69,7 @@ cd Genshin-Midi-Auto-Player
    - Qt 版本：Qt 6.x MSVC2022 64-bit
 3. 构建配置：
    - 构建模式：Release
-   - 构建目录：`../build-GenshinMidi-Desktop_Qt_6_7_0_MSVC2022_64bit-Release`
+   - 构建目录：`../build-GenshinMidi-Desktop_Qt_6_9_1_MSVC2022_64bit-Release`
 
 ### 步骤 3：构建项目
 1. 点击左下角 `构建` 按钮 (锤子图标)
