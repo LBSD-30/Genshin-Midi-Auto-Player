@@ -1,9 +1,11 @@
+RequestExecutionLevel admin
+
 !define APP_NAME "Genshin Midi Auto Player" 
-!define APP_VERSION "1.0.0"
+!define APP_VERSION "1.0.1"
 !define APP_PUBLISHER "LBSD" 
 !define APP_EXE "Genshin_Midi_Auto_Player.exe" 
-!define SETUP_ICON "distribute\appicon.ico"
-!define APP_ICON "distribute\appicon.ico"
+!define SETUP_ICON "appicon.ico"
+!define APP_ICON "appicon.ico"
 
 Outfile "${APP_NAME} ${APP_VERSION} Setup.exe"
 SetCompressor lzma
@@ -31,17 +33,15 @@ UninstallIcon "${SETUP_ICON}"
       
 !insertmacro MUI_LANGUAGE "English"
 
-Section "       (Required)" SecMain
+Section "Main" SecMain
   SectionIn RO
 
   SetOutPath "$INSTDIR"
+  
+  File /r "*.*"
+  Delete "$INSTDIR\*.nsi"
 
-  File /r "distribute\*.*"
-
-  !ifdef APP_ICON
-    SetOutPath "$INSTDIR"
-    File "${APP_ICON}"
-  !endif
+  File "appicon.ico"
 
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "DisplayName" "${APP_NAME} ${APP_VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "DisplayVersion" "${APP_VERSION}"
@@ -59,7 +59,7 @@ Section "       (Required)" SecMain
 
 SectionEnd
 
-Section "  ? ?   ? ?" SecStartMenuShortcut
+Section "StartMenuShortcut" SecStartMenuShortcut
 
   CreateDirectory "$SMPROGRAMS\${APP_NAME}"
 
@@ -72,7 +72,7 @@ Section "  ? ?   ? ?" SecStartMenuShortcut
   CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall ${APP_NAME}.lnk" "$INSTDIR\Uninstall.exe"
 SectionEnd
 
-Section /o "     ? ?" SecDesktopShortcut
+Section /o "DesktopShortcut" SecDesktopShortcut
   !ifdef APP_ICON
     CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_EXE}" "" "$INSTDIR\${APP_ICON}" 0
   !else
