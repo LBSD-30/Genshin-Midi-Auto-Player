@@ -8,7 +8,7 @@
 3. 按向导完成安装
 
 ## 添加 midi
-直接将midi(.mid)文件放置在playlist文件夹下即可
+直接将midi(.mid)文件放置在playlist文件夹下即可，注意midi文件名称不能含有中文，必须是ASCII字符
 
 Release版本的playlist中自带一首senbonzakura.mid，可以直接使用
 
