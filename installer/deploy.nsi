@@ -1,7 +1,7 @@
 RequestExecutionLevel admin
 
 !define APP_NAME "Genshin Midi Auto Player" 
-!define APP_VERSION "1.0.2"
+!define APP_VERSION "1.0.3"
 !define APP_PUBLISHER "LBSD" 
 !define APP_EXE "Genshin_Midi_Auto_Player.exe" 
 !define SETUP_ICON "appicon.ico"

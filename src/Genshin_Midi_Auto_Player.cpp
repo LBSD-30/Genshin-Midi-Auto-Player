@@ -56,8 +56,6 @@ GenshinMidiAutoPlayer::GenshinMidiAutoPlayer(QWidget* parent)
             this, &GenshinMidiAutoPlayer::onStartButtonClicked);
     connect(ui.stopButton, &QPushButton::clicked,                       // 停止播放按钮
             this, &GenshinMidiAutoPlayer::onStopButtonClicked);
-    connect(playThread, &MidiPlayThread::playEnded,                     // 播放线程结束也连接到停止播放
-            this, &GenshinMidiAutoPlayer::onStopButtonClicked);
 
 }
 
@@ -141,6 +139,9 @@ void GenshinMidiAutoPlayer::onStartButtonClicked() {
     ui.pitchKeepButton->setEnabled(false);
     ui.pitchHigherButton->setEnabled(false);
 
+    // 连接线程终止信号
+    connect(playThread, &MidiPlayThread::finished, this, &GenshinMidiAutoPlayer::onStopButtonClicked);
+
     // 确保时间分析已完成
     midiFile.doTimeAnalysis();
     keyEvents.clear();
@@ -193,6 +194,12 @@ void GenshinMidiAutoPlayer::onStartButtonClicked() {
 
 void GenshinMidiAutoPlayer::onStopButtonClicked() {
 
+    // 终止线程
+    playThread->stop();
+    playThread->wait();
+    playThread->deleteLater();
+    playThread = new MidiPlayThread(keyEvents, this);
+
     ui.info->setText("请选择文件");
 
     // 设置按钮有效状态
@@ -204,11 +211,6 @@ void GenshinMidiAutoPlayer::onStopButtonClicked() {
 
     keyEvents.clear();
 
-    // 终止线程
-    playThread->stop();
-    playThread->wait();
-    playThread->deleteLater();
-    playThread = new MidiPlayThread(keyEvents, this);
 }
 
 // 导入midi文件路径

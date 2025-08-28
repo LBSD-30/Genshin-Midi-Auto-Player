@@ -132,14 +132,14 @@ void MidiPlayThread::run() {
 
         WORD vkCode = keyMap[event.keyChar];
         sendGameKeyEvent(vkCode, event.action);
-        QThread::msleep(10);
-        
+        QThread::msleep(5);
 
         eventIndex++;
+
     }
 
     m_stop = true;
-    emit playEnded();  // ∑¢ÀÕΩ· ¯–≈∫≈
+
 }
 
 void MidiPlayThread::sendGameKeyEvent(WORD vkCode, KeyAction action) {

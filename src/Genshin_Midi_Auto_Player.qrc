@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Genshin_Midi_Auto_Player">
+        <file>appicon.ico</file>
+    </qresource>
+</RCC>

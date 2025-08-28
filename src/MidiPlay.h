@@ -7,6 +7,7 @@
 #include <QWaitCondition>
 #include <QElapsedTimer>
 
+#include <atomic>
 #include <algorithm>
 #include <Windows.h>
 
@@ -42,12 +43,8 @@ public:
     // 设置event
     void setEvent(QList<MidiKeyEvent>& events);
 
-    //终止线程
+    // 终止线程
     void stop();
-
-signals:
-
-    void playEnded();
 
 protected:
 
@@ -55,10 +52,9 @@ protected:
 
 private:
 
-    volatile bool m_stop = false;  // 线程停止标志，确保多线程可见性
+    std::atomic<bool> m_stop = false;  // 线程停止标志，确保多线程可见性
     QList<MidiKeyEvent> m_events;
 
     void sendGameKeyEvent(WORD vkCode, KeyAction action);
-
 
 };
