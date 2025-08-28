@@ -1,5 +1,6 @@
 ﻿#include "Genshin_Midi_Auto_Player.h"
 
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -9,6 +10,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QDir>
+#include <QCoreApplication>
 #include <QDropEvent>
 
 
@@ -40,8 +42,8 @@ GenshinMidiAutoPlayer::GenshinMidiAutoPlayer(QWidget* parent)
     // 连接信号
     connect(ui.reloadFileListButton, &QPushButton::clicked,             // 重新识别按钮 
             this, &GenshinMidiAutoPlayer::reloadFileList);
-    connect(ui.chooseFileButton, &QPushButton::clicked,                 // 加载按钮
-            this, &GenshinMidiAutoPlayer::readMidiFile); 
+    connect(ui.openPlaylistButton, &QPushButton::clicked,                 // 加载按钮
+            this, &GenshinMidiAutoPlayer::openPlayList); 
     connect(ui.fileList, &QListWidget::itemDoubleClicked,               // 双击文件加载
             this, &GenshinMidiAutoPlayer::readMidiFile);
     connect(ui.pitchLowerButton, &QRadioButton::toggled,                // 音高降低按钮
@@ -70,6 +72,26 @@ void GenshinMidiAutoPlayer::reloadFileList() {
     importMidiFilePath();
 }
 
+// 打开playlist列表
+void GenshinMidiAutoPlayer::openPlayList() {
+
+    // 提取所在目录路径
+    QFileInfo exeInfo(QCoreApplication::applicationFilePath());
+    QString dirPath = exeInfo.absoluteDir().absolutePath();
+
+    // 拼接playlist子目录路径
+    QString playlistPath = QDir::toNativeSeparators(dirPath + "/playlist");
+
+    // 检查文件夹是否存在
+    if (!QDir(playlistPath).exists()) {
+        // 如果不存在则创建
+        QDir().mkpath(playlistPath);
+    }
+
+    // 使用QDesktopServices打开文件夹
+    QDesktopServices::openUrl(QUrl::fromLocalFile(playlistPath));
+}
+
 // 卸载midi文件
 void GenshinMidiAutoPlayer::unloadMidiFile() {
     midiFile.clear();
@@ -93,8 +115,11 @@ void GenshinMidiAutoPlayer::readMidiFile() {
     ui.startButton->setEnabled(true);
     ui.stopButton->setEnabled(false);
 
-    playThread->terminate();
-
+    playThread->stop();
+    playThread->wait();
+    playThread->deleteLater();
+    playThread = new MidiPlayThread(keyEvents, this);
+    
 }
 
 // 音高调整
@@ -211,7 +236,7 @@ void GenshinMidiAutoPlayer::importMidiFilePath() {
 // 获取当前选中文件的名称（std::string）
 std::string GenshinMidiAutoPlayer::getSelectedFileName(QListWidget* listWidget) {
     if (QListWidgetItem* item = listWidget->currentItem()) {
-        return item->text().toStdString(); // QString → std::string
+        return item->text().toStdString();
     }
     return ""; // 无选中项时返回空字符串
 }

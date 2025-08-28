@@ -30,23 +30,23 @@
      <enum>QAbstractItemView::DragDropMode::DropOnly</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="chooseFileButton">
+   <widget class="QPushButton" name="openPlaylistButton">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>300</x>
       <y>200</y>
-      <width>81</width>
+      <width>101</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>选择文件</string>
+     <string>打开midi文件夹</string>
     </property>
    </widget>
    <widget class="QPushButton" name="reloadFileListButton">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>210</x>
       <y>200</y>
       <width>81</width>
       <height>24</height>

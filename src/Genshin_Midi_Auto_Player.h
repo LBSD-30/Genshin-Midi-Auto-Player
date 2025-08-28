@@ -25,6 +25,9 @@ private slots:
     // 刷新文件列表
     void reloadFileList();
 
+    // 打开playlist列表
+    void openPlayList();
+
     // 卸载midi文件
     void unloadMidiFile();
 
